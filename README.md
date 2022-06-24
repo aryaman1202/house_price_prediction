@@ -4,3 +4,16 @@ House Price Prediction Model as the name suggests provides the user an approxima
 # Website UI
 ![hpp_model](https://user-images.githubusercontent.com/91802408/175567774-c980392b-9fa3-4b8c-b1ae-63cc9a190aae.jpg)
 
+# Dataset
+The dataset which is used here, is collected from Kaggle website. Here is the link of the dataset : https://www.kaggle.com/datasets/amitabhajoy/bengaluru-house-price-data.
+
+# Goal
+The goal of this project is to make a prediction model which will predict the price of houses available at different locations of Bangalore city.
+
+# Libraries used
+1. Numpy
+2. Pandas
+3. Sklearn
+4. Flask
+5. Pickle
+
