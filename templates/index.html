@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Prediction</title>
+    <link rel="icon" href="ML_work/house_prediction_model/icon.png">
+    <style>
+        .navbar {
+            background-color: black;
+            color: white;
+            padding: 5px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .list {
+            align-items: center;
+            display: flex;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .logo {
+            width: 80px;
+        }
+
+        .lists {
+            margin-right: 100px;
+        }
+
+        .listt {
+            align-items: center;
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .logo1 {
+            width: 150px;
+        }
+
+        #list-1,
+        #list-2,
+        #list-3 {
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+
+        .contact-form {
+            background-color: transparent;
+            width: 900px;
+            height: 550px;
+            margin-top: 50px;
+            margin-left: 20%;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: white 3px solid;
+        }
+
+        .subscribe {
+            font-size: 50px;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bolder;
+        }
+
+        .form {
+            padding: 80px;
+        }
+
+        .form input {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 5px;
+            background-color: grey;
+            border: none;
+            color: white;
+            border-bottom: white 1.5px solid;
+        }
+    </style>
+</head>
+<!-- background: url('C:/Users/Aryaman/Desktop/ML_work/house_prediction_model/house.jpg'); -->
+<body style="background-color: black;">
+    <div class="contact-form">
+        <p class="subscribe">House Price Prediction Model</p>
+        <form method="POST" accept-charset="utf-8">
+            <div class="form">
+                <!-- <p style="padding-bottom: 8px; font-family: Arial, Helvetica, sans-serif;font-size: large;color: white;">Select the Location</p>
+                <select name="location" id="location" aria-placeholder="Choose the location" style="width: 100%;background-color: transparent;border: 2px solid white;border-radius: 8px;margin-bottom: 8px;height: 30px;color: white;">
+                    {% for location in locations %}
+                        <option value="{{ location }}">{{ option }}</option>
+                    {% endfor %}
+                </select> -->
+                <label style="color: white; font-size: larger;font-style: normal;">Select Location: </label>
+                <br>
+                <select class="select picker forms-control" name="location" id="location" required="1" style="width: 100%;background-color: grey;margin-bottom: 8px;border-radius: 10px;border: 2px solid white;height: 30px;margin-top: 10px;">
+                    {% for location in locations %}
+                    <option value="{{ location }}" style="color: white;">{{ location }}</option>
+                    {% endfor %}
+                </select>
+                <!-- <input type="email" name="email" id="email" placeholder="--Enter your email ID--"> -->
+                <p style="padding-bottom: 8px; font-family: Arial, Helvetica, sans-serif;font-size: large;color: white;">Enter BHK: </p>
+                <input type="number" name="size" id="size" style="color: white;">
+                <p style="padding-bottom: 8px; font-family: Arial, Helvetica, sans-serif;font-size: large;color: white;">Enter No of Bathrooms: </p>
+                <input type="number" name="bath" id="bath" style="color: white;">
+                <p style="padding-bottom: 8px; font-family: Arial, Helvetica, sans-serif;font-size: large;color: white;">Enter Square Feet: </p>
+                <input type="text" name="total_sqft" id="total_sqft" style="color: white;">
+                <button type="submit" class="btn" onclick="send_data()" style="width: 15%;margin-left: 330px; height: 40px;background-color: red;color: white;border-radius: 20px;">Predict Price</button>
+            </div>
+        </form>
+        <br>
+        <div class="row">
+            <div class="col-12" style="text-align: center;">
+                <h3><span id="prediction" style="color: white;"></span></h3>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        function from_handler(event){
+            event.preventDefault();
+        }
+        function send_data(){
+            // suppress from default behaviour
+            document.querySelector('form').addEventListener('submit',from_handler);
+            // send and receive data to predict
+            var fd = new FormData(document.querySelector('form'));
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST','/predict',true);
+            document.getElementById("prediction").innerHTML="Wait! Predicting price...";
+
+            xhr.onreadystatechange = function()
+            {
+                if(xhr.readyState==XMLHttpRequest.DONE){
+                    document.getElementById("prediction").innerHTML="Prediction: ₹"+xhr.responseText;
+                }
+            };
+            xhr.onload= function(){};
+            xhr.send(fd);
+        }
+    </script>
+</body>
+
+</html>
